@@ -205,7 +205,7 @@ namespace VoidRay{
             voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[4].name,$"{Name}-500")};
             Il2CppReferenceArray<Model>voidRayBehav=voidRay.behaviors;
             WeaponModel beamWeapon=voidRayBehav.GetModel<AttackModel>().weapons[0];
-            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new($"{Name}-DestroyerBeam",new($"{Name}VoidRay-DestroyerBeam"));
+            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new($"{Name}-DestroyerBeam",new($"{Name}-DestroyerBeam"));
             ProjectileModel beamProj=beamWeapon.projectile;
             List<Model>beamProjBehav=beamProj.behaviors.ToList();
             beamProjBehav.Add(gameModel.GetTowerFromId("BombShooter").behaviors.GetModel<AttackModel>().weapons[0].projectile.behaviors.
