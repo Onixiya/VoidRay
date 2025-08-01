@@ -37,33 +37,31 @@ namespace VoidRay{
         public override Faction TowerFaction=>Faction.Protoss;
         public override UpgradeModel[]GenerateUpgradeModels(){
             return new UpgradeModel[]{
-                new("Prismatic Range",980,0,new("Ui["+Name+"-PrismaticRangeIcon]"),0,0,0,"","Prismatic Range"),
-                new("Flux Vanes",1475,0,new("Ui["+Name+"-FluxVanesIcon]"),0,1,0,"","Flux Vanes"),
-                new("Prismatic Alignment",2450,0,new("Ui["+Name+"-PrismaticAlignmentIcon]"),0,2,0,"","Prismatic Alignment"),
-                new(Name+"Destroyer",8500,0,new("Ui["+Name+"-DestroyerIcon]"),0,3,0,"",Name+"Destroyer"),
-                new("Mohandar",14500,0,new("Ui["+Name+"-MohandarIcon]"),0,4,0,"","Mohandar")
+                new("Prismatic Range",980,0,new($"Ui[{Name}-PrismaticRangeIcon]"),0,0,0,"","Prismatic Range"),
+                new("Flux Vanes",1475,0,new($"Ui[{Name}-FluxVanesIcon]"),0,1,0,"","Flux Vanes"),
+                new("Prismatic Alignment",2450,0,new($"Ui[{Name}-PrismaticAlignmentIcon]"),0,2,0,"","Prismatic Alignment"),
+                new($"{Name}Destroyer",8500,0,new($"Ui[{Name}-DestroyerIcon]"),0,3,0,"",$"{Name}Destroyer"),
+                new("Mohandar",14500,0,new($"Ui[{Name}-MohandarIcon]"),0,4,0,"","Mohandar")
             };
-            //lightning prefab
-            // 90,0,0 rotation
         }
-		public override Dictionary<string,Il2CppSystem.Type>Components=>new(){{Name+"-Prefab",Il2CppType.Of<VoidRayCom>()},
-            {Name+"-DestroyerPrefab",Il2CppType.Of<VoidRayCom>()},{Name+"-MohandarPrefab",Il2CppType.Of<VoidRayCom>()}};
-        public override Dictionary<string,Il2CppSystem.Type>Beams=>new(){{Name+"-Beam",Il2CppType.Of<VoidRayBeam>()},
-            {Name+"-DestroyerBeam",Il2CppType.Of<VoidRayDestroyerBeam>()},{Name+"-MohandarBeam",Il2CppType.Of<VoidRayMohandarBeam>()}};
+		public override Dictionary<string,Il2CppSystem.Type>Components=>new(){{$"{Name}-Prefab",Il2CppType.Of<VoidRayCom>()},
+            {$"{Name}-DestroyerPrefab",Il2CppType.Of<VoidRayCom>()},{$"{Name}-MohandarPrefab",Il2CppType.Of<VoidRayCom>()}};
+        public override Dictionary<string,Il2CppSystem.Type>Beams=>new(){{$"{Name}-Beam",Il2CppType.Of<VoidRayBeam>()},
+            {$"{Name}-DestroyerBeam",Il2CppType.Of<VoidRayDestroyerBeam>()},{$"{Name}-MohandarBeam",Il2CppType.Of<VoidRayMohandarBeam>()}};
         public override Dictionary<string,Tuple<string,int>>SpritePrefabLayers=>new(){{$"{Name}-BeamBounceSmall",
             new("ProjectilesOverBloons",5)},{$"{Name}-BeamBounceMedium",new("ProjectilesOverBloons",5)},{$"{Name}-BeamBounceLarge",
             new("ProjectilesOverBloons",5)}};
         [RegisterTypeInIl2Cpp]
         public class VoidRayBeam:SC2BeamCom{
             public VoidRayBeam(IntPtr ptr):base(ptr){}
-            public override string Name=>Name+"-Beam";
+            public override string Name=>$"{Name}-Beam";
             public override Vector4 DarkColour=>new(0,0.5f,1,1);
             public override Vector4 LightColour=>new(0,0.5f,1,1);
         }
         [RegisterTypeInIl2Cpp]
         public class VoidRayDestroyerBeam:SC2BeamCom{
             public VoidRayDestroyerBeam(IntPtr ptr):base(ptr){}
-            public override string Name=>Name+"-DestroyerBeam";
+            public override string Name=>$"{Name}-DestroyerBeam";
             public override Vector4 DarkColour=>new(0.45f,0,0,1);
             public override Vector4 LightColour=>new(0.75f,0,0,1);
             public override Vector4 Colour=>new(0,0,0,1);
@@ -71,7 +69,7 @@ namespace VoidRay{
         [RegisterTypeInIl2Cpp]
         public class VoidRayMohandarBeam:SC2BeamCom{
             public VoidRayMohandarBeam(IntPtr ptr):base(ptr){}
-            public override string Name=>Name+"-MohandarBeam";
+            public override string Name=>$"{Name}-MohandarBeam";
             public override Vector4 DarkColour=>new(1,0.501f,0,1);
             public override Vector4 LightColour=>new(1,0.5196f,0,1);
         }
@@ -99,18 +97,20 @@ namespace VoidRay{
             details.pathOneMax=5;
             details.pathTwoMax=0;
             details.pathThreeMax=0;
-            LocManager.textTable.Add(Name,"Void Ray");
-            LocManager.textTable.Add(UpgradeModels[3].name,"Destroyer");
-			LocManager.textTable.Add(Name+" Description","Flying Protoss craft, the first example of a Khalai and Nerazim design. Fires a high "
-                +"powered laser against bloons");
-            LocManager.textTable.Add(UpgradeModels[0].name+" Description","Refining the prismatic core more lets it fire further");
-            LocManager.textTable.Add(UpgradeModels[1].name+" Description","Better flux vanes allow for a faster attack");
-            LocManager.textTable.Add(UpgradeModels[2].name+" Description","Multiplies damage dealt to MOAB class bloons by 3");
-            LocManager.textTable.Add($"{UpgradeModels[3].name} Description","Stolen Void Rays retrofitted with bloodshards instead of a "+
-                 "prismatic core. Beam bounces to nearby targets");
-            LocManager.textTable.Add(UpgradeModels[4].name+" Description","Predecessor to the current Nerazim leader, Vorazun, deals huge damage against MOAB bloons");
             return details;
         }
+        public override Dictionary<string,string>Text=>new(){
+            {Name,"Void Ray"},
+            {UpgradeModels[3].name,"Destroyer"},
+			{$"{Name} Description","Flying Protoss craft, the first example of a Khalai and Nerazim design. Fires a high "
+                +"powered laser against bloons"},
+            {$"{UpgradeModels[0].name} Description","Refining the prismatic core more lets it fire further"},
+            {$"{UpgradeModels[1].name} Description","Better flux vanes allow for a faster attack"},
+            {$"{UpgradeModels[2].name} Description","Multiplies damage dealt to MOAB class bloons by 3"},
+            {$"{UpgradeModels[3].name} Description","Stolen Void Rays retrofitted with bloodshards instead of a "+
+                 "prismatic core. Beam bounces to nearby targets"},
+            {$"{UpgradeModels[4].name} Description","Predecessor to the current Nerazim leader, Vorazun, deals huge damage against MOAB bloons"}
+        };
         public override TowerModel[]GenerateTowerModels(){
             return new TowerModel[]{
                 Base(),
@@ -130,12 +130,12 @@ namespace VoidRay{
             voidRay.cost=1500;
             voidRay.tier=0;
             voidRay.tiers=new[]{0,0,0};
-            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[0].name,Name+"-100")};
+            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[0].name,$"{Name}-100")};
             voidRay.range=50;
-            voidRay.display=new(Name+"-Prefab");
-            voidRay.icon=new("Ui["+Name+"-Icon]");
+            voidRay.display=new($"{Name}-Prefab");
+            voidRay.icon=new($"Ui[{Name}-Icon]");
             voidRay.instaIcon=voidRay.icon;
-            voidRay.portrait=new("Ui["+Name+"-Portrait]");
+            voidRay.portrait=new($"Ui[{Name}-Portrait]");
             DisplayModel display=voidRay.behaviors.GetModel<DisplayModel>();
             display.positionOffset=new(0,0,100);
             display.display=voidRay.display;
@@ -152,60 +152,60 @@ namespace VoidRay{
             LineProjectileEmissionModel voidRayBeamEmiss=voidRayBeamWeapon.emission.Cast<LineProjectileEmissionModel>();
             voidRayBeamEmiss.useTowerRotation=true;
             voidRayBeamEmiss.dontUseTowerPosition=true;
-            voidRayBeamEmiss.displayPath=new(Name+"-Beam",new(Name+"-Beam"));
+            voidRayBeamEmiss.displayPath=new($"{Name}-Beam",new($"{Name}-Beam"));
             voidRayBeamWeapon.projectile.behaviors.GetModel<DamageModel>().damage=1;
             voidRay.behaviors=voidRayBehav.ToArray();
-            SetSounds(voidRay,Name+"-",true,true,true,false);
+            SetSounds(voidRay,$"{Name}-",true,true,true,false);
             return voidRay;
         }
         public TowerModel PrismaticRange(){
             TowerModel voidRay=Base().Clone<TowerModel>();
-            voidRay.name=Name+"-100";
+            voidRay.name=$"{Name}-100";
             voidRay.tier+=1;
 			voidRay.tiers[0]+=1;
             voidRay.appliedUpgrades=new[]{UpgradeModels[0].name};
             voidRay.range+=10;
             voidRay.behaviors.GetModel<AttackModel>().range=voidRay.range;
-            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[1].name,Name+"-200")};
+            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[1].name,$"{Name}-200")};
             return voidRay;
         }
         public TowerModel FluxVanes(){
             TowerModel voidRay=PrismaticRange().Clone<TowerModel>();
-            voidRay.name=Name+"-200";
+            voidRay.name=$"{Name}-200";
             voidRay.tier+=1;
 			voidRay.tiers[0]+=1;
             voidRay.appliedUpgrades=new[]{UpgradeModels[0].name,UpgradeModels[1].name};
             voidRay.behaviors.GetModel<AttackModel>().weapons[0].rate-=0.01f;
-            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[2].name,Name+"-300")};
+            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[2].name,$"{Name}-300")};
             return voidRay;
         }
         public TowerModel PrismaticAlignment(){
             TowerModel voidRay=FluxVanes().Clone<TowerModel>();
-            voidRay.name=Name+"-300";
+            voidRay.name=$"{Name}-300";
             voidRay.tier+=1;
 			voidRay.tiers[0]+=1;
             voidRay.appliedUpgrades=new[]{UpgradeModels[0].name,UpgradeModels[1].name,UpgradeModels[2].name};
-            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[3].name,Name+"-400")};
+            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[3].name,$"{Name}-400")};
             Il2CppReferenceArray<Model>voidRayBehav=voidRay.behaviors;
             ProjectileModel beamProj=voidRay.behaviors.GetModel<AttackModel>().weapons[0].projectile;
             List<Model>beamProjBehav=voidRay.behaviors.GetModel<AttackModel>().weapons[0].projectile.behaviors.ToList();
             beamProjBehav.Add(new DamageModifierForTagModel("DmgForTagModel","Moabs",3,0,false,true));
             beamProj.behaviors=beamProjBehav.ToArray();
-            SetUpgradeSounds(voidRayBehav.GetModel<CreateSoundOnUpgradeModel>(),Name+"-Destroyer");
+            SetUpgradeSounds(voidRayBehav.GetModel<CreateSoundOnUpgradeModel>(),$"{Name}-Destroyer");
             return voidRay;
         }
         public TowerModel Destroyer(){
             TowerModel voidRay=PrismaticAlignment().Clone<TowerModel>();
-            voidRay.name=Name+"-400";
+            voidRay.name=$"{Name}-400";
             voidRay.tier+=1;
 			voidRay.tiers[0]+=1;
-            voidRay.display=new(Name+"-DestroyerPrefab");
-            voidRay.portrait=new("Ui["+Name+"-DestroyerPortrait]");
+            voidRay.display=new($"{Name}-DestroyerPrefab");
+            voidRay.portrait=new($"Ui[{Name}-DestroyerPortrait]");
             voidRay.appliedUpgrades=new[]{UpgradeModels[0].name,UpgradeModels[1].name,UpgradeModels[2].name,UpgradeModels[3].name};
-            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[4].name,Name+"-500")};
+            voidRay.upgrades=new UpgradePathModel[]{new(UpgradeModels[4].name,$"{Name}-500")};
             Il2CppReferenceArray<Model>voidRayBehav=voidRay.behaviors;
             WeaponModel beamWeapon=voidRayBehav.GetModel<AttackModel>().weapons[0];
-            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new(Name+"-DestroyerBeam",new(Name+"VoidRay-DestroyerBeam"));
+            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new($"{Name}-DestroyerBeam",new($"{Name}VoidRay-DestroyerBeam"));
             ProjectileModel beamProj=beamWeapon.projectile;
             List<Model>beamProjBehav=beamProj.behaviors.ToList();
             beamProjBehav.Add(gameModel.GetTowerFromId("BombShooter").behaviors.GetModel<AttackModel>().weapons[0].projectile.behaviors.
@@ -222,36 +222,36 @@ namespace VoidRay{
             Il2CppReferenceArray<PrefabReference>beamEffectDisplays=beamEffect.displayPaths;
             for(int i=0;i<beamEffectDisplays.Count();i++){
                 if(i>5){
-                    beamEffectDisplays[i]=new(Name+"-BeamBounceLarge");
+                    beamEffectDisplays[i]=new($"{Name}-BeamBounceLarge");
                     continue;
                 }
                 if(i>2){
-                    beamEffectDisplays[i]=new(Name+"-BeamBounceMedium");
+                    beamEffectDisplays[i]=new($"{Name}-BeamBounceMedium");
                     continue;
                 }
                 if(i>=0){
-                    beamEffectDisplays[i]=new(Name+"-BeamBounceSmall");
+                    beamEffectDisplays[i]=new($"{Name}-BeamBounceSmall");
                     continue;
                 }
             }
             beamProj.behaviors=beamProjBehav.ToArray();
-            SetSounds(voidRay,Name+"-Destroyer",true,true,false,false);
-            SetUpgradeSounds(voidRayBehav.GetModel<CreateSoundOnUpgradeModel>(),Name+"-Mohandar");
+            SetSounds(voidRay,$"{Name}-Destroyer",true,true,false,false);
+            SetUpgradeSounds(voidRayBehav.GetModel<CreateSoundOnUpgradeModel>(),$"{Name}-Mohandar");
             return voidRay;
         }
         public TowerModel Mohandar(){
             TowerModel voidRay=Destroyer().Clone<TowerModel>();
-            voidRay.name=Name+"-500";
+            voidRay.name=$"{Name}-500";
             voidRay.tier+=1;
 			voidRay.tiers[0]+=1;
-            voidRay.display=new(Name+"-MohandarPrefab");
-            voidRay.portrait=new("Ui["+Name+"-MohandarPortrait]");
+            voidRay.display=new($"{Name}-MohandarPrefab");
+            voidRay.portrait=new($"Ui[{Name}-MohandarPortrait]");
             voidRay.appliedUpgrades=new[]{UpgradeModels[0].name,UpgradeModels[1].name,UpgradeModels[2].name,UpgradeModels[3].name,
                 UpgradeModels[4].name};
             voidRay.upgrades=new(0);
             Il2CppReferenceArray<Model>voidRayBehav=voidRay.behaviors;
             WeaponModel beamWeapon=voidRayBehav.GetModel<AttackModel>().weapons[0];
-            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new(Name+"-MohandarBeam",new(Name+"-MohandarBeam"));
+            beamWeapon.emission.Cast<LineProjectileEmissionModel>().displayPath=new($"{Name}-MohandarBeam",new($"{Name}-MohandarBeam"));
             ProjectileModel beamProj=beamWeapon.projectile;
             List<Model>beamProjBehav=beamProj.behaviors.ToList();
             beamProjBehav.RemoveModel<CreateProjectileOnContactModel>();
@@ -259,7 +259,7 @@ namespace VoidRay{
             beamProjBehav.GetModel<DamageModifierForTagModel>().damageMultiplier+=3;
             beamProj.behaviors=beamProjBehav.ToArray();
             voidRayBehav.GetModel<DisplayModel>().display=voidRay.display;
-            SetSounds(voidRay,Name+"-Mohandar",true,true,false,false);
+            SetSounds(voidRay,$"{Name}-Mohandar",true,true,false,false);
             return voidRay;
         }
         public override void Attack(Weapon weapon){
