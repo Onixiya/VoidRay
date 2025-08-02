@@ -80,7 +80,7 @@ namespace VoidRay{
             void Start(){
                 Anim=GetComponent<Animator>();
             }
-            public float Weight;
+            public float Weight=0;
             public void Update(){
                 Weight=Anim.GetLayerWeight(1);
                 if(Weight<1.01f){

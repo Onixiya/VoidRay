@@ -6,5 +6,6 @@ namespace VoidRay{
         public const string Description="Adds the Void Ray from Starcraft 2 as a military tower into BTD6";
         public const string RepoOwner="Onixiya";
         public const string RepoName="VoidRay";
+        public const string Dependencies="Onixiya/SC2Expansion";
     }
 }
